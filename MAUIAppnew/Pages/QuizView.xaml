@@ -1,62 +1,53 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUIAppnew.Pages.QuizView">
+             x:Class="MAUIAppnew.Pages.QuizView"
+             BackgroundColor="Black">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <!-- Styles -->
             <Style x:Key="QuestionLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="25"/>
                 <Setter Property="TextColor" Value="White"/>
-                <!-- Add other styling properties as needed -->
+            </Style>
+
+            <Style x:Key="winImage" TargetType="Label">
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="TextColor" Value="White"/>
             </Style>
 
             <Style x:Key="AnswerLabel" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="#444444"/>
+                <Setter Property="BackgroundColor" Value="White"/>
                 <Setter Property="Padding" Value="10"/>
                 <Setter Property="CornerRadius" Value="5"/>
-                <!-- Add other styling properties as needed -->
             </Style>
 
             <Style x:Key="NextButtonStyle" TargetType="Button">
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="WidthRequest" Value="150"/>
-                <!-- Add other styling properties as needed -->
             </Style>
 
             <Style x:Key="SubmitButtonStyle" TargetType="Button">
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="WidthRequest" Value="150"/>
-                <!-- Add other styling properties as needed -->
             </Style>
 
             <Style x:Key="QuitButtonStyle" TargetType="Button">
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="WidthRequest" Value="200"/>
                 <Setter Property="HeightRequest" Value="50"/>
-                <!-- Add other styling properties as needed -->
             </Style>
 
-            <!-- Define other styles as needed -->
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!-- Your content layout -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <!-- Row 3: Question -->
             <RowDefinition Height="Auto"/>
-            <!-- Row 4: Next Button -->
             <RowDefinition Height="Auto"/>
-            <!-- Row 5: Question Result -->
-            <RowDefinition Height="Auto"/>
-            <!-- Row 6: Empty Space -->
-            <RowDefinition Height="Auto"/>
-            <!-- Row 7: Quit Button -->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <BoxView Color="#555555" Grid.Row="0"/>
@@ -66,7 +57,6 @@
                HorizontalOptions="Center"
                Grid.Row="0"/>
 
-        <!-- Score -->
         <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="20">
             <Label Text="Score: "
                    FontSize="20"
@@ -77,24 +67,34 @@
                    BackgroundColor="#333333"
                    TextColor="White"/>
         </StackLayout>
-        
-        <StackLayout Grid.Row="2" Margin="20">
+        <StackLayout Grid.Row="2" Margin="80">
             <Label x:Name="QuestionLabel" 
                Style="{StaticResource QuestionLabel}"
                HorizontalOptions="Center"/>
-            <CollectionView Grid.Row="3" x:Name="quizOptions" Margin="10"  ItemsLayout="VerticalGrid, 2" SelectionChanged="CollectionView_SelectionChanged">
+            <CollectionView Grid.Row="3" x:Name="quizOptions" Margin="0"  ItemsLayout="VerticalGrid, 2" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                             <Label Text="{Binding Text}" Padding="25" FontSize="25" BackgroundColor="#333333" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="5" />
-                            <RadioButton x:Name="{Binding Text}" GroupName="SelectionName" CheckedChanged="SelectOption" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="5"/>
-                        </Grid> 
+                            <Label Text="{Binding Text}" Padding="25" FontSize="25" BackgroundColor="#333333" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="5" />
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </StackLayout>
 
-        <StackLayout Grid.Row="3">
+        <StackLayout Grid.Row="2" Orientation="Horizontal" Margin="-260" Padding="-8">
+            <StackLayout Orientation="Vertical" Margin="380" Padding="-28,5,0,0">
+                <RadioButton x:Name="Radio1" GroupName="Group1" CheckedChanged="SelectOption1" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="25"/>
+                <RadioButton x:Name="Radio2" GroupName="Group1" CheckedChanged="SelectOption3" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="25"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" Margin="380" Padding="30,5,0,0">
+                <RadioButton x:Name="Radio3" GroupName="Group1" CheckedChanged="SelectOption2" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="25"/>
+                <RadioButton x:Name="Radio4" GroupName="Group1" CheckedChanged="SelectOption4" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="25"/>
+            </StackLayout>
+        </StackLayout>
+
+        <StackLayout Grid.Row="3" Margin="-40">
             <Button x:Name="submitButton"
                     Text="Submit"
                 Style="{StaticResource SubmitButtonStyle}"
@@ -110,15 +110,22 @@
                 Clicked="NextButton_Clicked"/>
         </StackLayout>
 
-        <StackLayout Grid.Row="4" HorizontalOptions="Center">
-            <Image x:Name="resultImage" Source="icon_correct.png" IsVisible="True"/>
+        <StackLayout Grid.Row="4" HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Margin="80">
+            <Label x:Name="winImage" 
+                   Text="Correct!"
+                   Style = "{StaticResource winImage}"
+                   IsVisible="False" 
+                   HorizontalOptions="Center"/>
+
+            <Image x:Name="resultImage" Source="C:\Users\rajka\source\repos\MAUIAppnew\MAUIAppnew\icon_correct.png" IsVisible="False" Scale = "0.4"/>
         </StackLayout>
 
         <StackLayout Grid.Row="5"
                      HorizontalOptions="End" 
-                     VerticalOptions="End">
+                     VerticalOptions="EndAndExpand">
             <Button Text="Quit"
-                    Style="{StaticResource QuitButtonStyle}"/>
+                    Style="{StaticResource QuitButtonStyle}"
+                    Clicked="QuitButton_Clicked"/>
         </StackLayout>
     </Grid>
 

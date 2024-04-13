@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui;
+﻿
+using Microsoft.Maui;
+using Microsoft.VisualBasic.FileIO;
 using MAUIAppnew.Classes;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -14,6 +16,7 @@ namespace MAUIAppnew.Pages
         private int score;
         private List<State> missedStates = new List<State>();
         private int totalQuestions;
+        private string selectedOption;
 
         class optionStrings { string _text = ""; public string Text { get { return _text; } set { _text = value; } } }
 
@@ -21,7 +24,6 @@ namespace MAUIAppnew.Pages
         {
             InitializeComponent();
             quiz = new Quiz();
-
             // Display the first question
             DisplayNextQuestion();
         }
@@ -44,53 +46,88 @@ namespace MAUIAppnew.Pages
                 quizOptions.ItemsSource = options_;
                 options1 = options;
             }
-            else
-            {
-
-            }
+            Radio1.IsChecked = false;
+            Radio2.IsChecked = false;
+            Radio3.IsChecked = false;
+            Radio4.IsChecked = false;
         }
+        private void SelectOption1(object sender, CheckedChangedEventArgs e)
+        {
+            Debug.WriteLine("herere");
+            selectedOption = options1[0].Capital.ToString();
+            Debug.WriteLine(selectedOption);
+
+        }
+        private void SelectOption2(object sender, CheckedChangedEventArgs e)
+        {
+            Debug.WriteLine("herere");
+            selectedOption = options1[1].Capital.ToString();
+            Debug.WriteLine(selectedOption);
+
+        }
+        private void SelectOption3(object sender, CheckedChangedEventArgs e)
+        {
+            Debug.WriteLine("herere");
+            selectedOption = options1[2].Capital.ToString();
+            Debug.WriteLine(selectedOption);
+
+        }
+        private void SelectOption4(object sender, CheckedChangedEventArgs e)
+        {
+            Debug.WriteLine("herere");
+            selectedOption = options1[3].Capital.ToString();
+            Debug.WriteLine(selectedOption);
+
+        }
+
         private void NextButton_Clicked(object sender, EventArgs e)
         {
-            DisplayNextQuestion() ;
-            submitButton.IsVisible = true;
+            if (totalQuestions == 20)
+            {
+                App.TestResult(score, 20, missedStates);
+            }
+            else
+            {
+                DisplayNextQuestion();
+                submitButton.IsVisible = true;
 
-            // Show the Next button
-            nextButton.IsVisible = false;
+                // Show the Next button
+                nextButton.IsVisible = false;
+                resultImage.IsVisible = false;
+                winImage.IsVisible = false;
+            }
         }
         private void SubmitButton_Clicked(object sender, EventArgs e)
         {
-            if (currentQuestion.Correct.Capital == options1[1].Capital.ToString())
+            string filePath = "C:\\Users\\rajka\\source\\repos\\MAUIAppnew\\MAUIAppnew\\";
+            Debug.WriteLine(currentQuestion.Correct.Capital);
+            Debug.WriteLine(selectedOption);
+            if (currentQuestion.Correct.Capital == selectedOption)
             {
-                resultImage.Source = "icon_correct.png";
+                resultImage.Source = filePath + "icon_correct.png";
                 resultImage.IsVisible = true;
+                winImage.IsVisible = true;
+                winImage.Text = "Correct!";
                 score++;
                 ActualScoreLabel.Text = score.ToString() + "/20";
             }
             else
             {
-                resultImage.Source = "icon_incorrect.png";
+                winImage.IsVisible = true;
+                winImage.Text = "Incorrect...";
+                resultImage.Source = filePath + "icon_incorrect.png";
                 resultImage.IsVisible = true;
                 missedStates.Add(currentQuestion.Correct);
             }
-            if(totalQuestions == 20)
-            {
-                App.TestResult();
-            }
-            else
-            {
-                submitButton.IsVisible = false;
+            submitButton.IsVisible = false;
 
-                // Show the Next button
-                nextButton.IsVisible = true;
-            }
-            
+            // Show the Next button
+            nextButton.IsVisible = true;
         }
-
-        private void SelectOption(object sender, EventArgs e)
+        private void QuitButton_Clicked(object sender, EventArgs e)
         {
-            var radioButton = (RadioButton)sender;
+            App.Current.Quit();
         }
-
         private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection != null && e.CurrentSelection.Any())

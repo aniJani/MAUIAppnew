@@ -1,1 +1,112 @@
-﻿
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIAppnew.Pages.ResultView"
+             BackgroundColor="Black">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ResultLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+            <Style x:Key="AnswerLabel" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#444444"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+
+            <Style x:Key="NewGameButton" TargetType="Button">
+                <Setter Property="FontSize" Value="35"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="WidthRequest" Value="250"/>
+            </Style>
+
+            <Style x:Key="ExitGameButton" TargetType="Button">
+                <Setter Property="FontSize" Value="35"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="WidthRequest" Value="250"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Your content layout -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Text="Result"
+               FontSize="45"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Grid.Row="0"/>
+
+        <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="Center" Margin="20">
+            <Frame Padding="5" BackgroundColor="#333333" Margin="5" WidthRequest="80">
+                <Label x:Name="ActualScore"
+                FontSize="45"
+                Text="0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                TextColor="White"/>
+            </Frame>
+
+            <Label Text="Of"
+                   FontSize="45"
+                   Padding="5"
+                   TextColor="White"/>
+
+            <Frame Padding="5" BackgroundColor="#333333" Margin="5" WidthRequest="80">
+                <Label x:Name="Total"
+                   FontSize="45"
+                  HorizontalOptions="Center"
+               VerticalOptions="Center"
+                   Text="20"
+                   TextColor="White"/>
+            </Frame>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Margin="20">
+            <Label x:Name="ResultLabel"
+                   IsVisible="True"
+                   Text="You missed the following states:"
+               Style="{StaticResource ResultLabel}"
+               HorizontalOptions="Center"/>
+            <CollectionView Grid.Row="3" x:Name="quizOptions" Margin="10"  ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Label Text="{Binding Text}" Padding="8" FontSize="25" BackgroundColor="#333333" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="5" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+        <StackLayout Grid.Row="3" HorizontalOptions="CenterAndExpand" Orientation="Horizontal" VerticalOptions="End" Margin="10">
+            <Image x:Name="resultImage" Source="C:\Users\rajka\source\repos\MAUIAppnew\MAUIAppnew\KERRANG_MURICA.jpg" IsVisible="False" WidthRequest="1000"/>
+        </StackLayout>
+        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="Center" Margin="40">
+            <Button x:Name="newGameButton"
+                    Text="New Game"
+                Style="{StaticResource NewGameButton}"
+                Grid.Row="3"
+                HorizontalOptions="Center"
+                    Margin="20"
+                Clicked="NewGame_Clicked"/>
+            <Button x:Name="exitButton"
+                Text="Exit"
+                  IsVisible = "True"
+                 Style="{StaticResource ExitGameButton}"
+                    Margin="20"
+                Grid.Row="3"
+                HorizontalOptions="Center"
+                Clicked="Exit_Clicked"/>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

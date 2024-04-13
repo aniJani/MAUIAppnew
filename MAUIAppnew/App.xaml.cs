@@ -1,4 +1,6 @@
-﻿namespace MAUIAppnew
+﻿using MAUIAppnew.Classes;
+
+namespace MAUIAppnew
 {
     public partial class App : Application
     {
@@ -6,26 +8,21 @@
         public App()
         {
             InitializeComponent();
-            //TestResult();
             LoadStates();
 
             MainPage = new Pages.QuizView();
             MainPage = MainPage;
         }
-        public static void TestResult()
+
+        public static void newGame()
         {
-            int score = 0;
-            int overall = 20;
-            List<Classes.State> Missed = new List<Classes.State>();
+            LoadStates();
 
-            Random r = new Random();
-            for (int i = 0; i < 10; i++)
-            {
-                int chosen = r.Next(0, App.states.Count);
-                Missed.Add(App.states[chosen]);
-            }
-
-            App.Current.MainPage = new Pages.ResultsView(score, overall, Missed); //new AppShell();
+            App.Current.MainPage = new Pages.QuizView();
+        }
+        public static void TestResult(int score, int overall, List<State> Missed)
+        {
+            App.Current.MainPage = new Pages.ResultView(score, overall, Missed); //new AppShell();
         }
 
 
