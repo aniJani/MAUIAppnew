@@ -116,8 +116,8 @@
                    Style = "{StaticResource winImage}"
                    IsVisible="False" 
                    HorizontalOptions="Center"/>
+            <Image x:Name="resultImage" Source="icon_correct.png" IsVisible="False" Scale="0.4" />
 
-            <Image x:Name="resultImage" Source="C:\Users\rajka\source\repos\MAUIAppnew\MAUIAppnew\icon_correct.png" IsVisible="False" Scale = "0.4"/>
         </StackLayout>
 
         <StackLayout Grid.Row="5"

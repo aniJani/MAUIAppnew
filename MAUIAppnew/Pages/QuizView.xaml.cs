@@ -109,31 +109,30 @@ namespace MAUIAppnew.Pages
         }
         private void SubmitButton_Clicked(object sender, EventArgs e)
         {
-            string filePath = "C:\\Users\\rajka\\source\\repos\\MAUIAppnew\\MAUIAppnew\\";
             Debug.WriteLine(currentQuestion.Correct.Capital);
             Debug.WriteLine(selectedOption);
             if (currentQuestion.Correct.Capital == selectedOption)
             {
-                resultImage.Source = filePath + "icon_correct.png";
+                resultImage.Source = "icon_correct.png";
                 resultImage.IsVisible = true;
                 winImage.IsVisible = true;
                 winImage.Text = "Correct!";
                 score++;
-                ActualScoreLabel.Text = score.ToString() + "/20";
+                ActualScoreLabel.Text = $"{score}/20"; 
             }
             else
             {
                 winImage.IsVisible = true;
                 winImage.Text = "Incorrect...";
-                resultImage.Source = filePath + "icon_incorrect.png";
+                resultImage.Source = "icon_incorrect.png";
                 resultImage.IsVisible = true;
                 missedStates.Add(currentQuestion.Correct);
             }
             submitButton.IsVisible = false;
 
-            // Show the Next button
             nextButton.IsVisible = true;
         }
+
         private void QuitButton_Clicked(object sender, EventArgs e)
         {
             App.Current.Quit();
