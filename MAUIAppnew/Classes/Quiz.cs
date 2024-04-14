@@ -1,4 +1,14 @@
-﻿
+﻿/*
+ Program Author: Janit Rajkarnikar
+
+USM ID: w10163086
+
+Assignment: Capital Quiz 3
+
+Description:
+The program runs through the States Class of Quiz.cs and its methods. It uses the QuizView and ResultView Views.
+The required frontend and backend for all the views are there.
+ */
 using MAUIAppnew;
 
 namespace MAUIAppnew.Classes
@@ -12,7 +22,7 @@ namespace MAUIAppnew.Classes
     {
         private State? _correct = null;
         private List<State> _distractors = new List<State>();
-
+        
         public QuizQuestion(State? correct = null)
         {
             _correct = correct;
