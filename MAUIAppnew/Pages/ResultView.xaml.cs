@@ -7,7 +7,7 @@ Assignment: Capital Quiz 3
 
 Description:
 The program runs through the States Class of Quiz.cs and its methods. It uses the QuizView and ResultView Views.
-The required frontend and backend for all the views are there.
+The required frontend and backend for all the views are there. The stateCapitals is loaded by App.xaml.cs
  */
 using Microsoft.Maui;
 using Microsoft.Maui.Graphics;
